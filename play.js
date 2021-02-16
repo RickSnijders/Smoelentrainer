@@ -62,3 +62,118 @@ for (var i = 0; i < players.length; i++) {
 	document.getElementById("btn-"+i).innerHTML = players[randomNumberName].name;
 };
 
+var selectedIMG;
+var selectedIMGid;
+function selectIMG(id){
+	// check if there is already a img selected and add/remove border
+
+
+	if(selectedIMGid == undefined) {
+		document.getElementById(id).style.outlineStyle = "solid";
+		document.getElementById(id).style.outlineColor = "#01adff";
+		document.getElementById(id).style.outlineWidth = "0.5rem";
+		document.getElementById(id).style.outlineOffset = "-0.5rem";
+		selectedIMGid = id;
+		selectedIMG = document.getElementById(id).src;
+	} else{
+		document.getElementById(selectedIMGid).style.outlineStyle = "none";
+		document.getElementById(id).style.outlineStyle = "solid";
+		document.getElementById(id).style.outlineColor = "#01adff";
+		document.getElementById(id).style.outlineWidth = "0.5rem";
+		document.getElementById(id).style.outlineOffset = "-0.5rem";
+		selectedIMGid = id;
+		selectedIMG = document.getElementById(id).src;
+	}
+
+	//cuts off src path from image
+	selectedIMG = selectedIMG.substring(selectedIMG.indexOf("src"));
+	checkMatch();
+}
+
+var selectedNAME;
+var selectedNAMEid;
+function selectNAME(id){
+	if(selectedNAMEid == undefined) {
+		document.getElementById(id).style.outlineStyle = "solid";
+		document.getElementById(id).style.outlineColor = "#01adff";
+		document.getElementById(id).style.outlineWidth = "0.5rem";
+		document.getElementById(id).style.outlineOffset = "-0.5rem";
+		selectedNAMEid = id;
+		selectedNAME = document.getElementById(id).innerHTML;
+	}
+	else{
+		document.getElementById(selectedNAMEid).style.outlineStyle = "none";
+		document.getElementById(id).style.outlineStyle = "solid";
+		document.getElementById(id).style.outlineColor = "#01adff";
+		document.getElementById(id).style.outlineWidth = "0.5rem";
+		document.getElementById(id).style.outlineOffset = "-0.5rem";
+		selectedNAMEid = id;
+		selectedNAME = document.getElementById(id).innerHTML;
+	}
+	checkMatch();
+}
+
+var score = 0;
+var tries = 0;
+function checkMatch(){
+	var selectedNoMatch;
+	
+	
+
+	if(selectedNAME != undefined && selectedIMG != undefined){
+		tries++;
+		document.getElementById("triesCounter").innerHTML = tries;
+		resetAnimation();
+
+		for (var i = 0; i < players.length; i++) {
+			selectedNoMatch = false;
+			console.log(players[i].name);
+			if(players[i].name == selectedNAME && players[i].image == selectedIMG){
+				// alert("Een set!");
+				document.getElementById(selectedNAMEid).style.opacity = "0";
+				document.getElementById(selectedNAMEid).style.transition = "1s";
+				document.getElementById(selectedNAMEid).onclick = null;
+
+				document.getElementById(selectedIMGid).style.opacity = "0";
+				document.getElementById(selectedIMGid).style.transition = "1s";
+				document.getElementById(selectedIMGid).onclick = null;
+				selectedNAME = undefined;
+				selectedIMG = undefined;
+				score++;
+				document.getElementById("scoreCounter").innerHTML = score;
+				return;
+			} else if(players[i].name != selectedNAME || players[i].image != selectedIMG){
+				selectedNoMatch = true;
+			}
+		
+		}
+		if(selectedNoMatch == true){
+			// alert("No match");
+			document.getElementById(selectedNAMEid).style.outlineColor = "#ff0015";
+			document.getElementById(selectedIMGid).style.outlineColor = "#ff0015";
+
+			document.getElementById(selectedNAMEid).classList.add("shakeAnimation");
+			document.getElementById(selectedIMGid).classList.add("shakeAnimation");
+	
+			selectedNAME = undefined;
+			selectedIMG = undefined;
+			document.getElementById(selectedNAMEid).style.outlineStyle = "none";
+			document.getElementById(selectedIMGid).style.outlineStyle = "none";
+			
+		
+		}	
+	} else {
+		// alert("Niet beide geselecteerd");
+	}
+	// console.log(selectedNAME);
+	// console.log(selectedIMG);
+	
+}
+
+function resetAnimation(){
+	document.getElementById(selectedIMGid).classList.remove("shakeAnimation");
+		document.getElementById(selectedNAMEid).classList.remove("shakeAnimation");
+		void document.getElementById(selectedNAMEid).offsetWidth;
+		void document.getElementById(selectedIMGid).offsetWidth;
+}
+
