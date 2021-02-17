@@ -1,4 +1,3 @@
-
 var players = [
 {
 	name: "Blind",
@@ -46,6 +45,47 @@ var players = [
 }
 
 ];
+// Timer
+var interval = 1000;
+var timerTime = 60;
+var width = 100;
+var barAmount = Number(width/timerTime);
+var timer = setTimeout(countDown, interval);
+document.getElementById("timer").innerHTML = "Timer: "+timerTime+"s";
+
+function countDown() {
+	timerTime--;
+    document.getElementById("timer").innerHTML = "Timer: "+timerTime+"s";
+    width = width-barAmount;
+    console.log(width);
+    document.getElementById("timerBar").style.width = width + "%"; 
+    // document.getElementById("timerBar").style.transition = "1s linear"; 
+    timer = setTimeout(countDown, interval);
+
+
+    if(timerTime== 0){
+    	clearTimeout(timer);
+    	document.getElementById("progress").classList.remove("d-inline-block");
+		document.getElementById("invisible").classList.remove("d-none");
+    }
+}
+
+
+
+const buttons = document.querySelectorAll('.button');
+console.log(buttons);
+buttons.forEach(element => {
+	console.log(element.id);
+	element.onclick = function() { selectIMG(element.id); };
+});
+
+const buttons2 = document.querySelectorAll('.button-2');
+console.log(buttons2);
+buttons2.forEach(element => {
+	console.log(element.id);
+	element.onclick = function() { selectNAME(element.id); };
+});
+
 // Creates random numbers without repeating and places the images on the site
 var numbers = Array(0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10);
 var numbersName = Array(0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10);
@@ -53,7 +93,6 @@ for (var i = 0; i < players.length; i++) {
 	var randomNumber = numbers[Math.floor(Math.random() * numbers.length)];
 	var numberIndex = numbers.indexOf(randomNumber);
 	numbers.splice(numberIndex,1);
-
 	var randomNumberName = numbersName[Math.floor(Math.random() * numbersName.length)];
 	var numberIndexName = numbersName.indexOf(randomNumberName);
 	numbersName.splice(numberIndexName,1);
@@ -64,23 +103,20 @@ for (var i = 0; i < players.length; i++) {
 
 var selectedIMG;
 var selectedIMGid;
+
+// Select the clicked image
 function selectIMG(id){
 	// check if there is already a img selected and add/remove border
 
-
 	if(selectedIMGid == undefined) {
-		document.getElementById(id).style.outlineStyle = "solid";
-		document.getElementById(id).style.outlineColor = "#01adff";
-		document.getElementById(id).style.outlineWidth = "0.5rem";
-		document.getElementById(id).style.outlineOffset = "-0.5rem";
+
+		document.getElementById(id).classList.add("borderActive");
 		selectedIMGid = id;
 		selectedIMG = document.getElementById(id).src;
 	} else{
-		document.getElementById(selectedIMGid).style.outlineStyle = "none";
-		document.getElementById(id).style.outlineStyle = "solid";
-		document.getElementById(id).style.outlineColor = "#01adff";
-		document.getElementById(id).style.outlineWidth = "0.5rem";
-		document.getElementById(id).style.outlineOffset = "-0.5rem";
+		// document.getElementById(selectedIMGid).style.outlineStyle = "none";
+		document.getElementById(selectedIMGid).classList.remove("borderActive");
+		document.getElementById(id).classList.add("borderActive");
 		selectedIMGid = id;
 		selectedIMG = document.getElementById(id).src;
 	}
@@ -92,21 +128,18 @@ function selectIMG(id){
 
 var selectedNAME;
 var selectedNAMEid;
+
+// Select the clicked name
 function selectNAME(id){
 	if(selectedNAMEid == undefined) {
-		document.getElementById(id).style.outlineStyle = "solid";
-		document.getElementById(id).style.outlineColor = "#01adff";
-		document.getElementById(id).style.outlineWidth = "0.5rem";
-		document.getElementById(id).style.outlineOffset = "-0.5rem";
+		document.getElementById(id).classList.add("borderActive");
 		selectedNAMEid = id;
 		selectedNAME = document.getElementById(id).innerHTML;
 	}
 	else{
-		document.getElementById(selectedNAMEid).style.outlineStyle = "none";
-		document.getElementById(id).style.outlineStyle = "solid";
-		document.getElementById(id).style.outlineColor = "#01adff";
-		document.getElementById(id).style.outlineWidth = "0.5rem";
-		document.getElementById(id).style.outlineOffset = "-0.5rem";
+		document.getElementById(selectedNAMEid).classList.remove("borderActive");
+		document.getElementById(id).classList.add("borderActive");
+
 		selectedNAMEid = id;
 		selectedNAME = document.getElementById(id).innerHTML;
 	}
@@ -115,11 +148,11 @@ function selectNAME(id){
 
 var score = 0;
 var tries = 0;
+
+// check if the selected image/name is a match
 function checkMatch(){
 	var selectedNoMatch;
 	
-	
-
 	if(selectedNAME != undefined && selectedIMG != undefined){
 		tries++;
 		document.getElementById("triesCounter").innerHTML = tries;
@@ -141,6 +174,9 @@ function checkMatch(){
 				selectedIMG = undefined;
 				score++;
 				document.getElementById("scoreCounter").innerHTML = score;
+				if(score == players.length){
+					alert("Alles goed!");
+				}
 				return;
 			} else if(players[i].name != selectedNAME || players[i].image != selectedIMG){
 				selectedNoMatch = true;
@@ -149,17 +185,18 @@ function checkMatch(){
 		}
 		if(selectedNoMatch == true){
 			// alert("No match");
-			document.getElementById(selectedNAMEid).style.outlineColor = "#ff0015";
-			document.getElementById(selectedIMGid).style.outlineColor = "#ff0015";
+
+			// makes border red
+			// document.getElementById(selectedNAMEid).style.outlineColor = "#ff0015";
+			// document.getElementById(selectedIMGid).style.outlineColor = "#ff0015";
 
 			document.getElementById(selectedNAMEid).classList.add("shakeAnimation");
 			document.getElementById(selectedIMGid).classList.add("shakeAnimation");
 	
 			selectedNAME = undefined;
 			selectedIMG = undefined;
-			document.getElementById(selectedNAMEid).style.outlineStyle = "none";
-			document.getElementById(selectedIMGid).style.outlineStyle = "none";
-			
+			document.getElementById(selectedNAMEid).classList.remove("borderActive");
+			document.getElementById(selectedIMGid).classList.remove("borderActive");
 		
 		}	
 	} else {
@@ -170,6 +207,7 @@ function checkMatch(){
 	
 }
 
+//reset the animation
 function resetAnimation(){
 	document.getElementById(selectedIMGid).classList.remove("shakeAnimation");
 		document.getElementById(selectedNAMEid).classList.remove("shakeAnimation");

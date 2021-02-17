@@ -25,9 +25,10 @@ body{
   		100% { transform: translate(1px, -2px) rotate(-1deg); }
 }
 
-.border{
+.borderActive{
   outline-style: solid;
   outline-offset: -0.5rem;
   outline-width: 0.5rem;
   outline-color:  #01adff;
 }
+
