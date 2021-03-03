@@ -56,6 +56,7 @@ while(players.length !== 0){
 	array2.push(players[randomIndex]);
 	players.splice(randomIndex, 1);
 }
+
 players = array2;
 console.log(players);
 
@@ -142,6 +143,8 @@ for (var i = 0; i < gamePeople; i++) {
 var selectedIMG;
 var selectedIMGid;
 
+// Removes not used containers
+removeNotUsed();
 // Select the clicked image
 function selectIMG(id){
 	// check if there is already a img selected and add/remove border
@@ -253,12 +256,32 @@ function resetAnimation(){
 		void document.getElementById(selectedIMGid).offsetWidth;
 }
 
+
+var historySet = false;
+localStorage.setItem("HistorySet", historySet);
+var maxScore = localStorage.getItem("GamePeople");
 function gameEnding(){
 	// alert("De game is geeindigd, je score was "+score+" met "+tries+" pogingen");
+	historySet = true;
+	var date = new Date().toLocaleString();
 	localStorage.setItem("Score",score);
+	localStorage.setItem("Maxscore",maxScore);
 	localStorage.setItem("Tries",tries);
+	localStorage.setItem("Date",date);
+	localStorage.setItem("HistorySet", historySet);
 
 	
 	setTimeout("location.href = 'ending.html';",500);
 }
 
+function removeNotUsed(){
+	for (var i = 0; i < players.length; i++) {
+		if(document.getElementById("btn-"+i).innerHTML == ""){
+			document.getElementById("img-"+i).classList.remove("d-block");
+			document.getElementById("btn-"+i).classList.remove("d-block");
+			document.getElementById("btn-"+i).classList.remove("d-flex");
+			document.getElementById("img-"+i).classList.add("d-none");
+			document.getElementById("btn-"+i).classList.add("d-none");
+		}
+	};
+}
