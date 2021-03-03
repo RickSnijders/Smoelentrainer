@@ -46,7 +46,7 @@ var players = [
 
 ];
 
-
+var usedPlayers = [];
 
 
 // Creates a new array as long as the chosen players from settings and picks them random
@@ -134,7 +134,7 @@ for (var i = 0; i < gamePeople; i++) {
 
 	console.log(players[randomNumber].image);
 	console.log(players[randomNumber].name);
-
+	registerUsedPlayers(randomNumber);
 	document.getElementById("img-"+i).src = players[randomNumber].image;
 	document.getElementById("btn-"+i).innerHTML = players[randomNumberName].name;
 
@@ -274,6 +274,8 @@ function gameEnding(){
 	setTimeout("location.href = 'ending.html';",500);
 }
 
+
+// Removes not used buttons
 function removeNotUsed(){
 	for (var i = 0; i < players.length; i++) {
 		if(document.getElementById("btn-"+i).innerHTML == ""){
@@ -284,4 +286,17 @@ function removeNotUsed(){
 			document.getElementById("btn-"+i).classList.add("d-none");
 		}
 	};
+}
+
+//Sends the players used in the game to the history
+function registerUsedPlayers(playerIndex){
+	usedPlayers.push({
+  		name: players[playerIndex].name,
+  		correct: false
+	});
+	console.log("test "+playerIndex);
+	console.log("test "+players[playerIndex].image);
+	console.log("test "+players[playerIndex].name);
+	// players[randomNumber].image
+	console.log(usedPlayers);
 }

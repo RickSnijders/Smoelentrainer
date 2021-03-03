@@ -25,7 +25,8 @@ function checkHistory(){
 		localStorage.setItem("HistorySet", false);
 	}
 }
-
+var test = 0;
+// Fills in the last 10 history
 function setHistory(){
 	var saveHistory = "Score= "+score+"/"+maxScore+", Tries= "+tries+", Date= "+date
 	for (var i = 0 ; i <= 9; i++) {
@@ -35,7 +36,24 @@ function setHistory(){
 			document.getElementById("history-"+(i+1)).innerHTML = history[i];
 			alert("if "+i);
 			return;
+		}else{
+			test++;
 		}
+	}
+	// if history is full
+	if(test==10){
+		// moves history one place down
+			for(var i = 9 ; i >= 0; i--){
+				var temp = localStorage.getItem("History"+i);
+				localStorage.setItem("History"+(i+1),temp);
+				history[i] = temp;
+				document.getElementById("history-"+(i+1)).innerHTML = history[i];
+				console.log(temp);
+			}
+			localStorage.setItem("History"+1,saveHistory);
+			history[0] = localStorage.getItem("History"+1);
+			document.getElementById("history-"+1).innerHTML = history[0];
+			alert("else activated");
 	}
 }
 
@@ -49,3 +67,6 @@ function resetHistory(){
 	}
 }
 
+document.getElementById("endingBtn").onclick = function(){
+	window.location.href="index.html";
+}
