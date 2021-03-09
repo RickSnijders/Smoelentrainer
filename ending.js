@@ -2,9 +2,14 @@ var score = localStorage.getItem("Score");
 var tries = localStorage.getItem("Tries");
 var date = localStorage.getItem("Date");
 var maxScore = localStorage.getItem("Maxscore");
+var timeleft = localStorage.getItem("TimeLeft");
+var gametime = localStorage.getItem("GameTime")
+var correctPlayers = JSON.parse(localStorage.getItem("PlayersCorrect"));
+var timeused = gametime-timeleft;
+
 document.getElementById("scoreText").innerHTML = score;
 document.getElementById("triesText").innerHTML = tries;
-
+console.log(correctPlayers);
 // Puts in the saved history (from games played before) in the history array
 var history = [];
 for (var i = 0 ; i <= 9; i++) {
@@ -25,23 +30,29 @@ function checkHistory(){
 		localStorage.setItem("HistorySet", false);
 	}
 }
-var test = 0;
+var historyList = 0;
 // Fills in the last 10 history
 function setHistory(){
-	var saveHistory = "Score= "+score+"/"+maxScore+", Tries= "+tries+", Date= "+date
+	var test = "";
+	correctPlayers.forEach(function(player){
+  		test += player.name+"= "+player.correct+"<br>"
+
+  	});
+ //  	console.log(test);
+	var saveHistory = "Score= "+score+"/"+maxScore+", Tries= "+tries+", Date= "+date+", Time= "+timeused+"<br> Correct Players: <br>"+test;
 	for (var i = 0 ; i <= 9; i++) {
 		if(document.getElementById("history-"+(i+1)).innerHTML == ""){
 			localStorage.setItem("History"+(i+1),saveHistory);
 			history[i] = localStorage.getItem("History"+(i+1));
 			document.getElementById("history-"+(i+1)).innerHTML = history[i];
-			alert("if "+i);
 			return;
 		}else{
-			test++;
+			historyList++;
 		}
 	}
+	console.log(correctPlayers);
 	// if history is full
-	if(test==10){
+	if(historyList==10){
 		// moves history one place down
 			for(var i = 9 ; i >= 0; i--){
 				var temp = localStorage.getItem("History"+i);

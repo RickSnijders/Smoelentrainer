@@ -87,7 +87,6 @@ function countDown() {
     // document.getElementById("timerBar").style.transition = "1s linear"; 
     timer = setTimeout(countDown, interval);
 
-
     if(timerTime== 0){
     	clearTimeout(timer);
     	document.getElementById("progress").classList.remove("d-inline-block");
@@ -117,7 +116,7 @@ var numbers = [];
 for(var i = 0; i < gamePeople; i++){
 	numbers[i] = i;
 }
-console.log(numbers);
+// console.log(numbers);
 
 var numbersName = [];
 for(var i = 0; i < gamePeople; i++){
@@ -132,8 +131,8 @@ for (var i = 0; i < gamePeople; i++) {
 	var numberIndexName = numbersName.indexOf(randomNumberName);
 	numbersName.splice(numberIndexName,1);
 
-	console.log(players[randomNumber].image);
-	console.log(players[randomNumber].name);
+	// console.log(players[randomNumber].image);
+	// console.log(players[randomNumber].name);
 	registerUsedPlayers(randomNumber);
 	document.getElementById("img-"+i).src = players[randomNumber].image;
 	document.getElementById("btn-"+i).innerHTML = players[randomNumberName].name;
@@ -142,6 +141,7 @@ for (var i = 0; i < gamePeople; i++) {
 
 var selectedIMG;
 var selectedIMGid;
+
 
 // Removes not used containers
 removeNotUsed();
@@ -201,7 +201,7 @@ function checkMatch(){
 
 		for (var i = 0; i < players.length; i++) {
 			selectedNoMatch = false;
-			console.log(players[i].name);
+			// console.log(players[i].name);
 			if(players[i].name == selectedNAME && players[i].image == selectedIMG){
 				// alert("Een set!");
 				document.getElementById(selectedNAMEid).style.opacity = "0";
@@ -214,6 +214,8 @@ function checkMatch(){
 				selectedNAME = undefined;
 				selectedIMG = undefined;
 				score++;
+				addCorrectPlayers(selectedNAMEid);
+				
 				document.getElementById("scoreCounter").innerHTML = score;
 				if(score == gamePeople){
 					gameEnding();
@@ -269,8 +271,9 @@ function gameEnding(){
 	localStorage.setItem("Tries",tries);
 	localStorage.setItem("Date",date);
 	localStorage.setItem("HistorySet", historySet);
-
-	
+	// localStorage.setItem("PlayersCorrect", usedPlayers);
+	localStorage.setItem("PlayersCorrect", JSON.stringify(usedPlayers));
+	localStorage.setItem("TimeLeft", timerTime);
 	setTimeout("location.href = 'ending.html';",500);
 }
 
@@ -294,9 +297,24 @@ function registerUsedPlayers(playerIndex){
   		name: players[playerIndex].name,
   		correct: false
 	});
-	console.log("test "+playerIndex);
-	console.log("test "+players[playerIndex].image);
-	console.log("test "+players[playerIndex].name);
+	// console.log("test "+playerIndex);
+	// console.log("test "+players[playerIndex].image);
+	// console.log("test "+players[playerIndex].name);
 	// players[randomNumber].image
 	console.log(usedPlayers);
+}
+
+// Updates the array where the information about the matches is in
+function addCorrectPlayers(PlayerId){
+	var rememberName = document.getElementById(PlayerId).innerHTML;
+	// console.log(PlayerId);
+	// console.log(rememberName);
+	for (var i = 0; i<= usedPlayers.length; i++) {
+		if(rememberName == usedPlayers[i].name){
+			usedPlayers[i].correct = true;
+			console.log(usedPlayers);
+			return;
+		}
+	}
+
 }
