@@ -7,13 +7,38 @@ var gametime = localStorage.getItem("GameTime")
 var correctPlayers = JSON.parse(localStorage.getItem("PlayersCorrect"));
 var timeused = gametime-timeleft;
 
+
+const button = document.getElementById("toggledropdown");
+button.onclick = toggleHistory;
+
+function toggleHistory(){
+	var x = document.getElementById("historyContainer");
+  	if (x.style.display === "none") {
+    x.style.display = "block";
+ 	} else {
+    x.style.display = "none";
+  	}
+}
+
+if(localStorage.getItem("gameID") == undefined){
+	var gameid = 1;
+	localStorage.setItem("gameID", gameid);
+}
+
+var gameNumber = localStorage.getItem("gameID");
+console.log(localStorage.getItem("gameID"));
 document.getElementById("scoreText").innerHTML = score;
 document.getElementById("triesText").innerHTML = tries;
 console.log(correctPlayers);
+
+
 // Puts in the saved history (from games played before) in the history array
 var history = [];
+var historyArrayList = [];
 for (var i = 0 ; i <= 9; i++) {
 		history[i] = localStorage.getItem("History"+(i+1));
+
+		historyArrayList[i] = JSON.parse(localStorage.getItem("HistoryArray"+(i+1)));
 	}
 
 // Places the history in the html
@@ -30,6 +55,8 @@ function checkHistory(){
 		localStorage.setItem("HistorySet", false);
 	}
 }
+
+
 var historyList = 0;
 // Fills in the last 10 history
 function setHistory(){
@@ -39,12 +66,28 @@ function setHistory(){
 
   	});
  //  	console.log(test);
-	var saveHistory = "Score= "+score+"/"+maxScore+", Tries= "+tries+", Date= "+date+", Time= "+timeused+"<br> Correct Players: <br>"+test;
+	var saveHistory = "Score= "+score+"/"+maxScore+", Tries= "+tries+", Date= "+date+", Time= "+timeused+", GameID= "+"#"+gameNumber+"<br> Correct Players: <br>"+test;
+
+	var historyArray= [
+	{
+		score: score,
+		maxscore: maxScore,
+		tries: tries,
+		date: date,
+		timeused: timeused,
+		gameNumber: gameNumber,
+		correctplayers: correctPlayers
+	}];
+	
+	console.log(historyArray);
+	newGameNumber();
 	for (var i = 0 ; i <= 9; i++) {
 		if(document.getElementById("history-"+(i+1)).innerHTML == ""){
 			localStorage.setItem("History"+(i+1),saveHistory);
 			history[i] = localStorage.getItem("History"+(i+1));
 			document.getElementById("history-"+(i+1)).innerHTML = history[i];
+
+			localStorage.setItem("HistoryArray"+(i+1),JSON.stringify(historyArray));
 			return;
 		}else{
 			historyList++;
@@ -68,6 +111,7 @@ function setHistory(){
 	}
 }
 
+
 function resetHistory(){
 	for (var i = 1 ; i <= 10; i++) {
 		localStorage.setItem("History"+i, "");
@@ -78,6 +122,14 @@ function resetHistory(){
 	}
 }
 
+
 document.getElementById("endingBtn").onclick = function(){
 	window.location.href="index.html";
+}
+
+
+function newGameNumber(){
+	var gameid = localStorage.getItem("gameID");
+	gameid++;
+	localStorage.setItem("gameID", gameid);
 }

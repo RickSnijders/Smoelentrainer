@@ -5,5 +5,3 @@ document.getElementById('start').onclick = function(){
 document.getElementById('settings').onclick = function(){
 	window.location.href="settings.html";
 }
-
-alert(localStorage.getItem("GameTime"));

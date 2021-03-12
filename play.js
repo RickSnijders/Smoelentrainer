@@ -78,6 +78,7 @@ var barAmount = Number(width/timerTime);
 var timer = setTimeout(countDown, interval);
 document.getElementById("timer").innerHTML = "Timer: "+timerTime+"s";
 
+
 function countDown() {
 	timerTime--;
     document.getElementById("timer").innerHTML = "Timer: "+timerTime+"s";
@@ -170,6 +171,7 @@ function selectIMG(id){
 var selectedNAME;
 var selectedNAMEid;
 
+
 // Select the clicked name
 function selectNAME(id){
 	if(selectedNAMEid == undefined) {
@@ -250,6 +252,7 @@ function checkMatch(){
 	
 }
 
+
 //reset the animation
 function resetAnimation(){
 	document.getElementById(selectedIMGid).classList.remove("shakeAnimation");
@@ -291,6 +294,7 @@ function removeNotUsed(){
 	};
 }
 
+
 //Sends the players used in the game to the history
 function registerUsedPlayers(playerIndex){
 	usedPlayers.push({
@@ -303,6 +307,7 @@ function registerUsedPlayers(playerIndex){
 	// players[randomNumber].image
 	console.log(usedPlayers);
 }
+
 
 // Updates the array where the information about the matches is in
 function addCorrectPlayers(PlayerId){
