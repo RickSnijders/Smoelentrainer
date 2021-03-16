@@ -39,12 +39,14 @@ for (var i = 0 ; i <= 9; i++) {
 		history[i] = localStorage.getItem("History"+(i+1));
 
 		historyArrayList[i] = JSON.parse(localStorage.getItem("HistoryArray"+(i+1)));
+		console.log(historyArrayList[i]);
 	}
 
 // Places the history in the html
 for (var i = 1 ; i <= 10; i++) {
 		document.getElementById("history-"+i).innerHTML = history[(i-1)];
 	}
+
 
 console.log(history);
 
@@ -86,8 +88,11 @@ function setHistory(){
 			localStorage.setItem("History"+(i+1),saveHistory);
 			history[i] = localStorage.getItem("History"+(i+1));
 			document.getElementById("history-"+(i+1)).innerHTML = history[i];
+			
+			localStorage.setItem("HistoryArray"+(i+1),JSON.stringify(historyArray[0]));
 
-			localStorage.setItem("HistoryArray"+(i+1),JSON.stringify(historyArray));
+			historyArrayList[i] = JSON.parse(localStorage.getItem("HistoryArray"+(i+1)));
+			console.log(historyArrayList);
 			return;
 		}else{
 			historyList++;
@@ -102,11 +107,21 @@ function setHistory(){
 				localStorage.setItem("History"+(i+1),temp);
 				history[i] = temp;
 				document.getElementById("history-"+(i+1)).innerHTML = history[i];
-				console.log(temp);
+
+				var temp2 = JSON.parse(localStorage.getItem("HistoryArray"+i));
+				localStorage.setItem("HistoryArray"+(i+1),JSON.stringify(temp2));
+				historyArrayList[i] = temp2;
+				// console.log(historyArrayList)
+				// document.getElementById("historyArray-"+(i+1)).innerHTML = "test"+historyArrayList[i].score;
+
+				// console.log(temp);
 			}
 			localStorage.setItem("History"+1,saveHistory);
 			history[0] = localStorage.getItem("History"+1);
 			document.getElementById("history-"+1).innerHTML = history[0];
+
+			localStorage.setItem("HistoryArray"+1,JSON.stringify(historyArray[0]));
+			historyArrayList[0] = JSON.parse(localStorage.getItem("HistoryArray"+1));
 			alert("else activated");
 	}
 }
@@ -116,8 +131,12 @@ function resetHistory(){
 	for (var i = 1 ; i <= 10; i++) {
 		localStorage.setItem("History"+i, "");
 		history[(i-1)] = "";
+
 		console.log(localStorage.setItem("History"+i, ""));
-		
+		var clearArray = []
+		localStorage.setItem("HistoryArray"+i,JSON.stringify(clearArray));
+
+		historyArrayList = []
 		console.log(i);
 	}
 }
