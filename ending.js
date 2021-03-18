@@ -11,6 +11,10 @@ var timeused = gametime-timeleft;
 const button = document.getElementById("toggledropdown");
 button.onclick = toggleHistory;
 
+
+const buttonSort = document.getElementById("sortBtn");
+buttonSort.onclick = sortHistory;
+
 function toggleHistory(){
 	var x = document.getElementById("historyContainer");
   	if (x.style.display === "none") {
@@ -151,4 +155,26 @@ function newGameNumber(){
 	var gameid = localStorage.getItem("gameID");
 	gameid++;
 	localStorage.setItem("gameID", gameid);
+}
+
+function sortHistory(){
+	var scoreSort = historyArrayList.sort((a, b) => a.score.localeCompare(b.score));
+	console.log(scoreSort);
+
+	for (var i = 0; i <= 9; i++) {
+		var correct = "";
+		historyArrayList[i].correctplayers.forEach(function(player){
+  		correct += player.name+"= "+player.correct+"<br>"
+
+  		});
+		document.getElementById("history-"+(i+1)).innerHTML = "Score= "+historyArrayList[i].score+"/"+historyArrayList[i].maxscore+", Tries= "+historyArrayList[i].tries+", Date= "+historyArrayList[i].date+", Time= "+historyArrayList[i].timeused+", GameID= "+"#"+historyArrayList[i].gameNumber+"<br> Correct Players: <br>"+correct;
+	}
+	buttonSort.onclick = resetSort;
+}
+
+function resetSort(){
+	for (var i = 1 ; i <= 10; i++) {
+		document.getElementById("history-"+i).innerHTML = history[(i-1)];
+	}
+	buttonSort.onclick = sortHistory;
 }
