@@ -5,3 +5,7 @@ document.getElementById('start').onclick = function(){
 document.getElementById('settings').onclick = function(){
 	window.location.href="settings.html";
 }
+
+document.getElementById('blindspot').onclick = function(){
+	window.location.href="blindspot.html";
+}

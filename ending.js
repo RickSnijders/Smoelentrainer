@@ -126,10 +126,13 @@ function setHistory(){
 
 			localStorage.setItem("HistoryArray"+1,JSON.stringify(historyArray[0]));
 			historyArrayList[0] = JSON.parse(localStorage.getItem("HistoryArray"+1));
-			alert("else activated");
+			// alert("else activated");
 	}
+
 }
 
+
+localStorage.setItem("BlindspotArray",JSON.stringify(historyArrayList));
 
 function resetHistory(){
 	for (var i = 1 ; i <= 10; i++) {

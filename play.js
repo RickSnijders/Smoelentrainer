@@ -72,6 +72,7 @@ var timerTime = 120;
 if(localStorage.getItem("GameTime") != null){
 	timerTime = localStorage.getItem("GameTime");
 }
+
 var interval = 1000;
 var width = 100;
 var barAmount = Number(width/timerTime);
@@ -99,16 +100,12 @@ function countDown() {
 
 
 const buttons = document.querySelectorAll('.button');
-// console.log(buttons);
 buttons.forEach(element => {
-	// console.log(element.id);
 	element.onclick = function() { selectIMG(element.id); };
 });
 
 const buttons2 = document.querySelectorAll('.button-2');
-// console.log(buttons2);
 buttons2.forEach(element => {
-	// console.log(element.id);
 	element.onclick = function() { selectNAME(element.id); };
 });
 
@@ -117,7 +114,6 @@ var numbers = [];
 for(var i = 0; i < gamePeople; i++){
 	numbers[i] = i;
 }
-// console.log(numbers);
 
 var numbersName = [];
 for(var i = 0; i < gamePeople; i++){
@@ -132,8 +128,6 @@ for (var i = 0; i < gamePeople; i++) {
 	var numberIndexName = numbersName.indexOf(randomNumberName);
 	numbersName.splice(numberIndexName,1);
 
-	// console.log(players[randomNumber].image);
-	// console.log(players[randomNumber].name);
 	registerUsedPlayers(randomNumber);
 	document.getElementById("img-"+i).src = players[randomNumber].image;
 	document.getElementById("btn-"+i).innerHTML = players[randomNumberName].name;
@@ -203,9 +197,7 @@ function checkMatch(){
 
 		for (var i = 0; i < players.length; i++) {
 			selectedNoMatch = false;
-			// console.log(players[i].name);
 			if(players[i].name == selectedNAME && players[i].image == selectedIMG){
-				// alert("Een set!");
 				document.getElementById(selectedNAMEid).style.opacity = "0";
 				document.getElementById(selectedNAMEid).style.transition = "0.5s";
 				document.getElementById(selectedNAMEid).onclick = null;
@@ -229,8 +221,6 @@ function checkMatch(){
 		
 		}
 		if(selectedNoMatch == true){
-			// alert("No match");
-
 			// makes border red
 			// document.getElementById(selectedNAMEid).style.outlineColor = "#ff0015";
 			// document.getElementById(selectedIMGid).style.outlineColor = "#ff0015";
@@ -246,10 +236,7 @@ function checkMatch(){
 		}	
 	} else {
 		// alert("Niet beide geselecteerd");
-	}
-	// console.log(selectedNAME);
-	// console.log(selectedIMG);
-	
+	}	
 }
 
 
@@ -266,7 +253,6 @@ var historySet = false;
 localStorage.setItem("HistorySet", historySet);
 var maxScore = localStorage.getItem("GamePeople");
 function gameEnding(){
-	// alert("De game is geeindigd, je score was "+score+" met "+tries+" pogingen");
 	historySet = true;
 	var date = new Date().toLocaleString();
 	localStorage.setItem("Score",score);
@@ -301,9 +287,6 @@ function registerUsedPlayers(playerIndex){
   		name: players[playerIndex].name,
   		correct: false
 	});
-	// console.log("test "+playerIndex);
-	// console.log("test "+players[playerIndex].image);
-	// console.log("test "+players[playerIndex].name);
 	// players[randomNumber].image
 	console.log(usedPlayers);
 }
@@ -312,8 +295,6 @@ function registerUsedPlayers(playerIndex){
 // Updates the array where the information about the matches is in
 function addCorrectPlayers(PlayerId){
 	var rememberName = document.getElementById(PlayerId).innerHTML;
-	// console.log(PlayerId);
-	// console.log(rememberName);
 	for (var i = 0; i<= usedPlayers.length; i++) {
 		if(rememberName == usedPlayers[i].name){
 			usedPlayers[i].correct = true;
