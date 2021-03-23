@@ -32,4 +32,8 @@ body{
   outline-color:  #01adff;
 }
 
-
+.center {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}

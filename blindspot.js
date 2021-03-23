@@ -66,6 +66,10 @@ var players = [
 // console.log(blindspotArray[4].correctplayers);
 // console.log(blindspotArray[0].correctplayers.length);
 
+document.getElementById("endingBtn").onclick = function(){
+	window.location.href="index.html";
+}
+
 for (var p = 0; p <= 4; p++) {
 	for (var i = 0; i < blindspotArray[p].correctplayers.length; i++) {
 		// console.log(blindspotArray[p].correctplayers.length);
@@ -87,12 +91,34 @@ for (var p = 0; p <= 4; p++) {
 			console.log(players[playerindex].wrongcount);
 			players[playerindex].wrongcount++;
 			console.log(players[playerindex].wrongcount);
-			/*console.log(players.indexOf(test));*/
+			//console.log(players.indexOf(test));//
 			// console.log(players.indexOf(blindspotArray[p].correctplayers[i].name));
 		}
 	}  
 
 }
 
+
+var players2 = players;
+function SortBlindspot(){
+	players2.sort((a, b) => b.wrongcount.toString().localeCompare(a.wrongcount.toString()));
+	console.log(players2);
+}
+
+SortBlindspot();
+
+
+function GetBlindSpotPlayers(){
+	for (var i = 0; i <= 2; i++) {
+		playerIMG = players2[i].image;
+		playerNAME = players2[i].name;
+		playerWRONG = players2[i].wrongcount;
+		document.getElementById("img-"+(i+1)).src = playerIMG;
+		document.getElementById("name-"+(i+1)).innerHTML = playerNAME;
+		document.getElementById("wrong-"+(i+1)).innerHTML = playerWRONG;
+		
+	}
+}
+GetBlindSpotPlayers();
 console.log(players);
 

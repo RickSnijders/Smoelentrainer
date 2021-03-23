@@ -167,8 +167,7 @@ function sortHistory(){
 	for (var i = 0; i <= 9; i++) {
 		var correct = "";
 		historyArrayList[i].correctplayers.forEach(function(player){
-  		correct += player.name+"= "+player.correct+"<br>"
-
+  			correct += player.name+"= "+player.correct+"<br>"
   		});
 		document.getElementById("history-"+(i+1)).innerHTML = "Score= "+historyArrayList[i].score+"/"+historyArrayList[i].maxscore+", Tries= "+historyArrayList[i].tries+", Date= "+historyArrayList[i].date+", Time= "+historyArrayList[i].timeused+", GameID= "+"#"+historyArrayList[i].gameNumber+"<br> Correct Players: <br>"+correct;
 	}
