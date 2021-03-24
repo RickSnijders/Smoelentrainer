@@ -9,3 +9,11 @@ document.getElementById('settings').onclick = function(){
 document.getElementById('blindspot').onclick = function(){
 	window.location.href="blindspot.html";
 }
+var theme;
+
+if(localStorage.getItem("Theme") == null){
+	// gamePeople = localStorage.getItem("GamePeople");
+	theme = "standard";
+	localStorage.setItem("Theme",theme);
+}
+

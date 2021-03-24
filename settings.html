@@ -11,7 +11,7 @@
 	<form id="formSettings">
 	  	<div class="col-3 mx-auto align-items-center">
 	    	<div class="col-auto my-1">
-	      		<label class="mr-sm-2" for="inlineFormCustomSelect">Amount of different people:</label>
+	      		<label class="mr-sm-2" for="people">Amount of different people:</label>
 	      		<select name="people" class="custom-select mr-sm-2" id="inlineFormCustomSelect">
 	        		<option value="5">5</option>
 	        		<option value="6">6</option>
@@ -21,10 +21,16 @@
 	        		<option value="10">10</option>
 	        		<option selected value="11">11</option>
 	      		</select>
+	      		<label class="mr-sm-2" for="themselect">Select the theme:</label>
+	      		<select name="themeselect" class="custom-select mr-sm-2" id="inlineFormCustomSelect">
+	        		<option selected value="standard">Standard</option>
+	        		<option value="horizontal">Horizontal</option>
+	        		<option value="vertical">Vertical</option>
+	      		</select>
 	    	</div>
 	    	<div class="col-auto my-1">
 	      		<div class="custom-control custom-checkbox mr-sm-2 p-0">
-	      			<label class="mr-sm-2" for="inlineFormCustomSelect">Time:</label>
+	      			<label class="mr-sm-2" for="time">Time:</label>
 	        		<input type="number" id="tentacles" name="time" value="120"
        					min="30" max="180">
 	      		</div>

@@ -49,6 +49,10 @@ var players = [
 var usedPlayers = [];
 
 
+document.getElementById("endingBtn").onclick = function(){
+	window.location.href="index.html";
+}
+
 // Creates a new array as long as the chosen players from settings and picks them random
 let array2 = [];
 while(players.length !== 0){
@@ -304,3 +308,26 @@ function addCorrectPlayers(PlayerId){
 	}
 
 }
+
+function changeTheme(){
+	if (localStorage.getItem("Theme") == "horizontal") {
+		alert("theme horizontal");
+		document.getElementById("divImg").classList.remove("col-6");
+		document.getElementById("divImg").classList.add("col-12");
+		document.getElementById("divBtn").classList.remove("col-6");
+		document.getElementById("divBtn").classList.add("col-12");
+
+		for (var i = 0; i <= 10; i++) {
+			document.getElementById("img-"+i).classList.add("col-2");
+			document.getElementById("img-"+i).classList.add("p-0");
+			document.getElementById("btn-"+i).classList.add("col-2");
+			document.getElementById("btn-"+i).classList.add("p-5");
+		}
+	} else if (localStorage.getItem("Theme") == "vertical"){
+		alert("theme vertical");
+	}
+
+	
+}
+
+changeTheme();
