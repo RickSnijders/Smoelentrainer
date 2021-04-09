@@ -70,9 +70,12 @@ document.getElementById("endingBtn").onclick = function(){
 	window.location.href="index.html";
 }
 
+
+// A for loop for the last 5 histories
 for (var p = 0; p <= 4; p++) {
+	// A for loop the lenght of the players that were in that game of the specific history
 	for (var i = 0; i < blindspotArray[p].correctplayers.length; i++) {
-		// console.log(blindspotArray[p].correctplayers.length);
+		// If the players is correct the wrongcount of the player gets +1
 		if(blindspotArray[p].correctplayers[i].correct == false){
 			// console.log("p = "+p);
 			// console.log("i = "+i);
@@ -98,7 +101,7 @@ for (var p = 0; p <= 4; p++) {
 
 }
 
-
+// Sorts the array with the wrongcount, highest count is first in the array
 var players2 = players;
 function SortBlindspot(){
 	players2.sort((a, b) => b.wrongcount.toString().localeCompare(a.wrongcount.toString()));
@@ -107,7 +110,7 @@ function SortBlindspot(){
 
 SortBlindspot();
 
-
+// gets the first 3 players in the array and puts them on the page
 function GetBlindSpotPlayers(){
 	for (var i = 0; i <= 2; i++) {
 		playerIMG = players2[i].image;

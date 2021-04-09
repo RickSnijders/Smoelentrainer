@@ -15,6 +15,8 @@ button.onclick = toggleHistory;
 const buttonSort = document.getElementById("sortBtn");
 buttonSort.onclick = sortHistory;
 
+
+// A function to toggle if the history is visible
 function toggleHistory(){
 	var x = document.getElementById("historyContainer");
   	if (x.style.display === "none") {
@@ -24,6 +26,7 @@ function toggleHistory(){
   	}
 }
 
+// if gameID is undefined, it is set to 1
 if(localStorage.getItem("gameID") == undefined){
 	var gameid = 1;
 	localStorage.setItem("gameID", gameid);
@@ -54,6 +57,8 @@ for (var i = 1 ; i <= 10; i++) {
 
 console.log(history);
 
+
+// checks if the history function already had been called, so if page is refreshed it doesn't execute again
 function checkHistory(){
 	console.log(localStorage.getItem("HistorySet"));
 	if(localStorage.getItem("HistorySet") == "true"){
@@ -134,6 +139,7 @@ function setHistory(){
 
 localStorage.setItem("BlindspotArray",JSON.stringify(historyArrayList));
 
+// To reset the history (for testing purposes)
 function resetHistory(){
 	for (var i = 1 ; i <= 10; i++) {
 		localStorage.setItem("History"+i, "");
@@ -154,12 +160,14 @@ document.getElementById("endingBtn").onclick = function(){
 }
 
 
+// If a new game starts gamid get +1
 function newGameNumber(){
 	var gameid = localStorage.getItem("gameID");
 	gameid++;
 	localStorage.setItem("gameID", gameid);
 }
 
+// Sorts the history on score
 function sortHistory(){
 	var scoreSort = historyArrayList.sort((a, b) => a.score.localeCompare(b.score));
 	console.log(scoreSort);
@@ -174,6 +182,8 @@ function sortHistory(){
 	buttonSort.onclick = resetSort;
 }
 
+
+// Sorts the history back on date
 function resetSort(){
 	for (var i = 1 ; i <= 10; i++) {
 		document.getElementById("history-"+i).innerHTML = history[(i-1)];

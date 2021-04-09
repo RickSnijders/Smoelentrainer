@@ -1,6 +1,8 @@
 const button = document.getElementById("save");
 button.onclick = save;
 
+
+// Saves all the form information and puts them in localstorage
 function save(){
 	// alert("saved");
 	var formValues = document.forms.formSettings;

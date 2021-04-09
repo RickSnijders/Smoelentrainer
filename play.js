@@ -46,8 +46,65 @@ var players = [
 
 ];
 
-var usedPlayers = [];
+var removePlayer = [
+	{
+	name: "Blind",
+	image: "src/blind.jpg",
+	correctcount: 0
+},
+{
+	name: "De Jong",
+	image: "src/dejong.jpg",
+	correctcount: 0
+},
+{
+	name: "De Ligt",
+	image: "src/deligt.jpg",
+	correctcount: 0
+},
+{
+	name: "Neres",
+	image: "src/neres.jpg",
+	correctcount: 0
+},
+{
+	name: "Onana",
+	image: "src/onana.jpg",
+	correctcount: 0
+},
+{
+	name: "Schone",
+	image: "src/schone.jpg",
+	correctcount: 0
+},
+{
+	name: "Tadic",
+	image: "src/tadic.jpg",
+	correctcount: 0
+},
+{
+	name: "Tagliafico",
+	image: "src/tagliafico.jpg",
+	correctcount: 0
+},
+{
+	name: "Van De Beek",
+	image: "src/vandebeek.jpg",
+	correctcount: 0
+},
+{
+	name: "Veltman",
+	image: "src/veltman.jpg",
+	correctcount: 0
+},
+{
+	name: "Ziyech",
+	image: "src/ziyech.jpg",
+	correctcount: 0
+}
+];
 
+var usedPlayers = [];
 
 document.getElementById("endingBtn").onclick = function(){
 	window.location.href="index.html";
@@ -64,26 +121,29 @@ while(players.length !== 0){
 players = array2;
 console.log(players);
 
+
+// Defines gamePeople (number of players of the game)
 var gamePeople = 11;
 if(localStorage.getItem("GamePeople") != null){
 	gamePeople = localStorage.getItem("GamePeople");
 }
 
 
-// Timer
+// Defines timerTime
 var timerTime = 120;
 // alert(localStorage.getItem("GameTime"));
 if(localStorage.getItem("GameTime") != null){
 	timerTime = localStorage.getItem("GameTime");
 }
 
+// timer settings
 var interval = 1000;
 var width = 100;
 var barAmount = Number(width/timerTime);
 var timer = setTimeout(countDown, interval);
 document.getElementById("timer").innerHTML = "Timer: "+timerTime+"s";
 
-
+// Timer function 
 function countDown() {
 	timerTime--;
     document.getElementById("timer").innerHTML = "Timer: "+timerTime+"s";
@@ -113,17 +173,21 @@ buttons2.forEach(element => {
 	element.onclick = function() { selectNAME(element.id); };
 });
 
-// Creates random numbers without repeating and places the images on the site
+// Creates an array with numbers
 var numbers = [];
 for(var i = 0; i < gamePeople; i++){
 	numbers[i] = i;
 }
 
+// Creates an array with numbers
 var numbersName = [];
 for(var i = 0; i < gamePeople; i++){
 	numbersName[i] = i;
 }
 console.log(numbersName);
+
+// Uses the arrays with numbers from above to place the images random on the site without repeating the same image
+// The splice removes the number from the array that already has been used
 for (var i = 0; i < gamePeople; i++) {
 	var randomNumber = numbers[Math.floor(Math.random() * numbers.length)];
 	var numberIndex = numbers.indexOf(randomNumber);
@@ -144,6 +208,7 @@ var selectedIMGid;
 
 // Removes not used containers
 removeNotUsed();
+
 // Select the clicked image
 function selectIMG(id){
 	// check if there is already a img selected and add/remove border
@@ -172,6 +237,7 @@ var selectedNAMEid;
 
 // Select the clicked name
 function selectNAME(id){
+	// checks if there is already a name selected and add/removes border
 	if(selectedNAMEid == undefined) {
 		document.getElementById(id).classList.add("borderActive");
 		selectedNAMEid = id;
@@ -198,7 +264,7 @@ function checkMatch(){
 		tries++;
 		document.getElementById("triesCounter").innerHTML = tries;
 		resetAnimation();
-
+		// Loops through the array to check if there is a match
 		for (var i = 0; i < players.length; i++) {
 			selectedNoMatch = false;
 			if(players[i].name == selectedNAME && players[i].image == selectedIMG){
@@ -252,7 +318,7 @@ function resetAnimation(){
 		void document.getElementById(selectedIMGid).offsetWidth;
 }
 
-
+// Puts all the game details in localStorage
 var historySet = false;
 localStorage.setItem("HistorySet", historySet);
 var maxScore = localStorage.getItem("GamePeople");
@@ -309,6 +375,7 @@ function addCorrectPlayers(PlayerId){
 
 }
 
+// Changes the theme of the game
 function changeTheme(){
 	if (localStorage.getItem("Theme") == "horizontal") {
 		alert("theme horizontal");
@@ -325,9 +392,15 @@ function changeTheme(){
 		}
 	} else if (localStorage.getItem("Theme") == "vertical"){
 		alert("theme vertical");
+		for (var i = 0; i <= 10; i++) {
+			document.getElementById("img-"+i).classList.add("col-6");
+			document.getElementById("img-"+i).classList.add("p-0");
+			document.getElementById("btn-"+i).classList.add("col-6");
+		}
 	}
-
-	
 }
 
 changeTheme();
+
+
+
